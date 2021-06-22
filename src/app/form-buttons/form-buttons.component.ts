@@ -21,7 +21,7 @@ export class FormButtonsComponent implements OnInit {
 
   constructor() {
     this.saveText = "ارسال الطلب";
-    this.initialSaveText = "حفظ مبدئي";
+    this.initialSaveText = " حفظ مبدئي";
     this.deleteText = "حذف";
     this.cancelText = "الغاء";
   }

@@ -11,7 +11,7 @@ export class NumberComponent implements OnInit,ControlValueAccessor {
   @Input() placeholder:string;
 
   disabled:boolean;
-  value:string;
+  value:number;
 
   onchange:(value)=>void;
   ontouched:()=>void;
@@ -27,7 +27,7 @@ export class NumberComponent implements OnInit,ControlValueAccessor {
     }
   }
 
-  writeValue(obj: string): void {
+  writeValue(obj: number): void {
     this.value = obj;
     //this.numberForm.controls["number"].setValue(obj);
   }

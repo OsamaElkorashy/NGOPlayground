@@ -1,1 +1,16 @@
-<p>date works!</p>
+<label>{{label}}</label>
+<input
+  #text
+  [disabled]="disabled"
+  [placeholder]="placeholder"
+  (change) = "onchange(text.value)"
+  (blur)="ontouched()"
+  [(ngModel)]="value"
+  [min]="minDate| date:'yyyy-MM-dd'"
+  [max]="maxDate| date:'yyyy-MM-dd'"
+  [type]="dateTime?'datetime-local':'date'">
+  <div *ngIf="ngControl.invalid&&(ngControl.touched||ngControl.dirty)">
+    <span *ngIf="ngControl.errors['required']">"required"</span>
+    <span *ngIf="ngControl.errors['min']">{{ngControl.errors['min'].min}}</span>
+    <span *ngIf="ngControl.errors['max']">{{ngControl.errors['max'].max}}</span>
+  </div>

@@ -1,15 +1,10 @@
-import { AfterContentInit, Component, Input, OnInit, Optional, Self } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormGroup, NgControl, NG_VALUE_ACCESSOR, ValidatorFn, Validators } from '@angular/forms';
+import {  Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, NgControl, ValidationErrors, Validator, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-text',
   templateUrl: './text.component.html',
-  styleUrls: ['./text.component.css'],
-  // providers: [{
-  //   provide: NG_VALUE_ACCESSOR,
-  //   useExisting:  TextComponent,
-  //   multi: true
-  // }]
+  styleUrls: ['./text.component.css']
 })
 export class TextComponent implements OnInit,ControlValueAccessor {
   @Input() label:string;

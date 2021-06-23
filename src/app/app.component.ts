@@ -7,7 +7,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  date:Date;
   ngOnInit(): void {
+    debugger;
+    this.date = new Date();
     this.form = new FormGroup({
       text:new FormControl(null,[Validators.minLength(5)]),
       number:new FormControl(null,[Validators.min(5)]),

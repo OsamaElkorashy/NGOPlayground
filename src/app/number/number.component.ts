@@ -1,31 +1,35 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
+import { Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, FormControl, FormGroup, NgControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-number',
   templateUrl: './number.component.html',
-  styleUrls: ['./number.component.css'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting:  NumberComponent,
-    multi: true
-  }]
+  styleUrls: ['./number.component.css']
 })
 export class NumberComponent implements OnInit,ControlValueAccessor {
-  numberForm:FormGroup;
-  @Input() minLength:number;
-  @Input() maxLength:number;
-  @Input() min:number;
-  @Input() max:number;
+  @Input() label:string;
+  @Input() placeholder:string;
 
+  disabled:boolean;
+  value:string;
 
   onchange:(value)=>void;
   ontouched:()=>void;
-  disabled:boolean;
-  constructor() {
-   }
-  writeValue(obj: any): void {
-    this.numberForm.controls["number"].setValue(obj);
+
+  constructor(
+    @Optional() @Self() public ngControl: NgControl,
+  ) {
+    // Replace the provider from above with this.
+    if (this.ngControl != null) {
+      // Setting the value accessor directly (instead of using
+      // the providers) to avoid running into a circular import.
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  writeValue(obj: string): void {
+    this.value = obj;
+    //this.numberForm.controls["number"].setValue(obj);
   }
   registerOnChange(fn: any): void {
     this.onchange=fn;
@@ -38,26 +42,6 @@ export class NumberComponent implements OnInit,ControlValueAccessor {
   }
 
   ngOnInit(): void {
-    debugger;
-    this.numberForm = new FormGroup({
-      number:new FormControl()
-    });
-    if (this.minLength) {
-      this.numberForm.controls["number"].setValidators(Validators.minLength(this.minLength))
-    }
-    if (this.maxLength) {
-      this.numberForm.controls["number"].setValidators(Validators.maxLength(this.maxLength))
-    }
-    if (this.min) {
-      this.numberForm.controls["number"].setValidators(Validators.min(this.min))
-    }
-    if (this.max) {
-      this.numberForm.controls["number"].setValidators(Validators.max(this.max))
-    }
-    this.numberForm.controls["number"].updateValueAndValidity();
-  }
-  print(){
-    console.log(this.numberForm);
   }
 
 }

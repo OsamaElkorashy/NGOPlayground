@@ -1,10 +1,17 @@
-<form [formGroup]="numberForm">
-  <input
-    #number
-    [disabled]="disabled"
-    (change) = "onchange(number.value);print()"
-    (blur)="ontouched();print()"
-    formControlName="number"
-    type="number">
-</form>
+<label>{{label}}</label>
+<input
+  #number
+  [disabled]="disabled"
+  [placeholder]="placeholder"
+  (change) = "onchange(number.value)"
+  (blur)="ontouched()"
+  [(ngModel)]="value"
+  type="number">
+  <div *ngIf="ngControl.invalid&&(ngControl.touched||ngControl.dirty)">
+    <span *ngIf="ngControl.errors['required']">"required"</span>
+    <span *ngIf="ngControl.errors['minlength']">{{ngControl.errors['minlength'].requiredLength}}</span>
+    <span *ngIf="ngControl.errors['maxlength']">{{ngControl.errors['maxlength'].requiredLength}}</span>
+    <span *ngIf="ngControl.errors['min']">{{ngControl.errors['min'].min}}</span>
+    <span *ngIf="ngControl.errors['max']">{{ngControl.errors['max'].max}}</span>
+  </div>
 

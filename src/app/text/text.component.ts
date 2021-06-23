@@ -1,34 +1,41 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, ValidatorFn, Validators } from '@angular/forms';
+import { AfterContentInit, Component, Input, OnInit, Optional, Self } from '@angular/core';
+import { ControlValueAccessor, FormControl, FormGroup, NgControl, NG_VALUE_ACCESSOR, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-text',
   templateUrl: './text.component.html',
   styleUrls: ['./text.component.css'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting:  TextComponent,
-    multi: true
-  }]
+  // providers: [{
+  //   provide: NG_VALUE_ACCESSOR,
+  //   useExisting:  TextComponent,
+  //   multi: true
+  // }]
 })
 export class TextComponent implements OnInit,ControlValueAccessor {
-
-  Form:FormGroup;
-  @Input() minLength:number;
-  @Input() maxLength:number;
-  @Input() mypattern:string;
   @Input() label:string;
   @Input() placeholder:string;
+  value:string;
+  disabled:boolean;
+
 
   Validators:ValidatorFn[];
 
   onchange:(value)=>void;
   ontouched:()=>void;
-  disabled:boolean;
-  constructor() {
-   }
-  writeValue(obj: any): void {
-    this.Form.controls["Form"].setValue(obj);
+
+  constructor(
+    @Optional() @Self() public ngControl: NgControl,
+  ) {
+    // Replace the provider from above with this.
+    if (this.ngControl != null) {
+      // Setting the value accessor directly (instead of using
+      // the providers) to avoid running into a circular import.
+      this.ngControl.valueAccessor = this;
+    }
+  }
+  writeValue(obj: string): void {
+    //this.textForm.controls["text"].setValue(obj);
+    this.value = obj;
   }
   registerOnChange(fn: any): void {
     this.onchange=fn;
@@ -37,30 +44,28 @@ export class TextComponent implements OnInit,ControlValueAccessor {
     this.ontouched=fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    isDisabled?this.Form.controls["Form"].disable():null;
+    //isDisabled?this.textForm.controls["text"].disable():null;
+    this.disabled = isDisabled;
   }
 
   ngOnInit(): void {
-    this.InitializeComponent()
+    //this.InitializeComponent()
   }
-  InitializeComponent() {
-    this.Form = new FormGroup({
-      Form:new FormControl()
-    });
-    this.Validators = [];
+  // InitializeComponent() {
 
-    if (this.minLength) {
-      this.Validators.push(Validators.minLength(this.minLength))
-    }
-    if (this.maxLength) {
-      this.Validators.push(Validators.maxLength(this.maxLength))
-    }
-    if (this.mypattern) {
-      this.Validators.push(Validators.pattern(this.mypattern))
-    }
-    this.Form.controls["Form"].setValidators(this.Validators)
-    this.Form.updateValueAndValidity();
-  }
+  //   this.Validators = [];
 
+  //   if (this.minLength) {
+  //     this.Validators.push(Validators.minLength(this.minLength))
+  //   }
+  //   if (this.maxLength) {
+  //     this.Validators.push(Validators.maxLength(this.maxLength))
+  //   }
+  //   if (this.mypattern) {
+  //     this.Validators.push(Validators.pattern(this.mypattern))
+  //   }
+  //   this.textForm.controls["text"].setValidators(this.Validators)
+  //   this.textForm.updateValueAndValidity();
+  // }
 
 }

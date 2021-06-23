@@ -9,7 +9,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.form = new FormGroup({
-      test:new FormControl(null,[Validators.minLength(5),Validators.pattern("^[a-zA-Z]+$")])
+      text:new FormControl(null,[Validators.minLength(5)]),
+      number:new FormControl(null,[Validators.min(5)]),
     })
   }
   form:FormGroup;

@@ -1,4 +1,3 @@
-<div [formGroup]="Form">
   <label>{{label}}</label>
   <input
     #text
@@ -6,6 +5,10 @@
     [placeholder]="placeholder"
     (change) = "onchange(text.value)"
     (blur)="ontouched()"
-    formControlName="Form"
+    [(ngModel)]="value"
     type="text">
-</div>
+    <div *ngIf="ngControl.invalid&&(ngControl.touched||ngControl.dirty)">
+      <span *ngIf="ngControl.errors['required']">"required"</span>
+      <span *ngIf="ngControl.errors['minlength']">{{ngControl.errors['minlength'].requiredLength}}</span>
+      <span *ngIf="ngControl.errors['maxlength']">{{ngControl.errors['maxlength'].requiredLength}}</span>
+    </div>

@@ -1,9 +1,11 @@
-<div [formGroup]="textForm">
+<div [formGroup]="Form">
+  <label>{{label}}</label>
   <input
     #text
     [disabled]="disabled"
+    [placeholder]="placeholder"
     (change) = "onchange(text.value)"
     (blur)="ontouched()"
-    formControlName="text"
+    formControlName="Form"
     type="text">
 </div>

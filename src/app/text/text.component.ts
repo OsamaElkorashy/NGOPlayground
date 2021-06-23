@@ -13,10 +13,12 @@ import { ControlValueAccessor, FormControl, FormGroup, NG_VALUE_ACCESSOR, Valida
 })
 export class TextComponent implements OnInit,ControlValueAccessor {
 
-  textForm:FormGroup;
+  Form:FormGroup;
   @Input() minLength:number;
   @Input() maxLength:number;
   @Input() mypattern:string;
+  @Input() label:string;
+  @Input() placeholder:string;
 
   Validators:ValidatorFn[];
 
@@ -26,7 +28,7 @@ export class TextComponent implements OnInit,ControlValueAccessor {
   constructor() {
    }
   writeValue(obj: any): void {
-    this.textForm.controls["text"].setValue(obj);
+    this.Form.controls["Form"].setValue(obj);
   }
   registerOnChange(fn: any): void {
     this.onchange=fn;
@@ -35,15 +37,15 @@ export class TextComponent implements OnInit,ControlValueAccessor {
     this.ontouched=fn;
   }
   setDisabledState?(isDisabled: boolean): void {
-    isDisabled?this.textForm.controls["text"].disable():null;
+    isDisabled?this.Form.controls["Form"].disable():null;
   }
 
   ngOnInit(): void {
     this.InitializeComponent()
   }
   InitializeComponent() {
-    this.textForm = new FormGroup({
-      text:new FormControl()
+    this.Form = new FormGroup({
+      Form:new FormControl()
     });
     this.Validators = [];
 
@@ -56,8 +58,8 @@ export class TextComponent implements OnInit,ControlValueAccessor {
     if (this.mypattern) {
       this.Validators.push(Validators.pattern(this.mypattern))
     }
-    this.textForm.controls["text"].setValidators(this.Validators)
-    this.textForm.controls["text"].updateValueAndValidity();
+    this.Form.controls["Form"].setValidators(this.Validators)
+    this.Form.updateValueAndValidity();
   }
 
 

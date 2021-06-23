@@ -1,1 +1,19 @@
-<p>confirmation-modal works!</p>
+<!-- The Modal -->
+<div class="modal" [ngStyle]="{'display': modalClosed?'none':'block'}">
+
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <div style="display: flex;justify-content: space-between;">
+      <h1 style="display:inline;">{{header}}</h1>
+      <span (click)="modalClosed=true" class="close">&times;</span>
+    </div>
+
+    <span>{{message}}</span>
+
+  <div>
+    <button (click)="Confirm.emit()">Confirm</button>
+    <button (click)="Cancel.emit()">Cancel</button>
+  </div>
+  </div>
+</div>

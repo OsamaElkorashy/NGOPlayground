@@ -1,1 +1,9 @@
-<p>text works!</p>
+<div [formGroup]="textForm">
+  <input
+    #text
+    [disabled]="disabled"
+    (change) = "onchange(text.value)"
+    (blur)="ontouched()"
+    formControlName="text"
+    type="text">
+</div>

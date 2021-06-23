@@ -8,6 +8,7 @@ import { TextComponent } from './text/text.component';
 import { DateComponent } from './date/date.component';
 import { ConfirmationModalComponent } from './confirmation-modal/confirmation-modal.component';
 import { FormButtonsComponent } from './form-buttons/form-buttons.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { FormButtonsComponent } from './form-buttons/form-buttons.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

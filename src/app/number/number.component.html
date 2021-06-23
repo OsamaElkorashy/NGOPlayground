@@ -1,1 +1,10 @@
-<p>number works!</p>
+<form [formGroup]="numberForm">
+  <input
+    #number
+    [disabled]="disabled"
+    (change) = "onchange(number.value);print()"
+    (blur)="ontouched();print()"
+    formControlName="number"
+    type="number">
+</form>
+
